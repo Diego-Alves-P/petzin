@@ -1,0 +1,46 @@
+<form class="grid gap-3 rounded border border-slate-200 bg-white p-4" [formGroup]="form" (ngSubmit)="enviar()">
+  <h2 class="text-lg font-medium">{{ editando() ? 'Editar pet' : 'Novo pet' }}</h2>
+  <label class="grid gap-1 text-sm">
+    Tutor
+    <select class="rounded border border-slate-300 px-3 py-2" formControlName="tutorId">
+      <option value="">Selecione</option>
+      @for (tutor of tutores(); track tutor.id) {
+        <option [value]="tutor.id">{{ tutor.nome }}</option>
+      }
+    </select>
+    @if (form.controls.tutorId.touched && form.controls.tutorId.invalid) {
+      <span class="text-red-700">Informe o tutor.</span>
+    }
+  </label>
+  <label class="grid gap-1 text-sm">
+    Nome
+    <input class="rounded border border-slate-300 px-3 py-2" formControlName="nome" />
+    @if (form.controls.nome.touched && form.controls.nome.invalid) {
+      <span class="text-red-700">Informe o nome do pet.</span>
+    }
+  </label>
+  <label class="grid gap-1 text-sm">
+    Espécie
+    <select class="rounded border border-slate-300 px-3 py-2" formControlName="especie">
+      <option value="">Selecione</option>
+      @for (especie of especies; track especie) {
+        <option [value]="especie">{{ especie }}</option>
+      }
+    </select>
+    @if (form.controls.especie.touched && form.controls.especie.invalid) {
+      <span class="text-red-700">Informe a espécie.</span>
+    }
+  </label>
+  <label class="grid gap-1 text-sm">
+    Raça
+    <input class="rounded border border-slate-300 px-3 py-2" formControlName="raca" />
+    @if (form.controls.raca.touched && form.controls.raca.invalid) {
+      <span class="text-red-700">Informe a raça.</span>
+    }
+  </label>
+  <app-mensagem-erro [texto]="erro()" />
+  <div class="flex gap-2">
+    <button class="rounded bg-slate-800 px-4 py-2 text-sm text-white" type="submit">Salvar</button>
+    <button class="rounded border border-slate-300 px-4 py-2 text-sm" type="button" (click)="limpar()">Limpar</button>
+  </div>
+</form>

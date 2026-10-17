@@ -1,0 +1,19 @@
+<div class="min-h-screen bg-slate-100 text-slate-800">
+  <header class="border-b border-slate-200 bg-white">
+    <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-4 py-4">
+      <div>
+        <p class="text-xl font-semibold">PetzIn</p>
+        <p class="text-sm text-slate-500">Hotel e creche</p>
+      </div>
+      <nav class="flex gap-4 text-sm">
+        <a class="text-slate-600" routerLink="/tutores" routerLinkActive="font-semibold text-slate-900">Tutores</a>
+        <a class="text-slate-600" routerLink="/pets" routerLinkActive="font-semibold text-slate-900">Pets</a>
+        <a class="text-slate-600" routerLink="/canis" routerLinkActive="font-semibold text-slate-900">Canis</a>
+        <a class="text-slate-600" routerLink="/reservas" routerLinkActive="font-semibold text-slate-900">Reservas</a>
+      </nav>
+    </div>
+  </header>
+  <main class="mx-auto max-w-5xl px-4 py-6">
+    <router-outlet />
+  </main>
+</div>

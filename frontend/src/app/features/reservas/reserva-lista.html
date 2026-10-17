@@ -1,0 +1,42 @@
+<div class="overflow-x-auto rounded border border-slate-200 bg-white p-4">
+  <h2 class="mb-3 text-lg font-medium">Reservas</h2>
+  @if (carregando()) {
+    <p class="text-sm text-slate-500">Carregando.</p>
+  } @else if (reservas().length === 0) {
+    <p class="text-sm text-slate-500">Nenhuma reserva cadastrada.</p>
+  } @else {
+    <table class="w-full text-left text-sm">
+      <thead class="text-slate-500">
+        <tr>
+          <th class="py-2 font-medium">Pet</th>
+          <th class="py-2 font-medium">Tutor</th>
+          <th class="py-2 font-medium">Canil</th>
+          <th class="py-2 font-medium">Entrada</th>
+          <th class="py-2 font-medium">Saída</th>
+          <th class="py-2 font-medium">Diária</th>
+          <th class="py-2 font-medium">Total</th>
+          <th class="py-2 font-medium">Status</th>
+          <th class="py-2 font-medium">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (reserva of reservas(); track reserva.id) {
+          <tr class="border-t border-slate-100">
+            <td class="py-2">{{ reserva.petNome }}</td>
+            <td class="py-2">{{ reserva.tutorNome }}</td>
+            <td class="py-2">{{ reserva.canilNumero }}</td>
+            <td class="py-2">{{ formatarData(reserva.dataEntrada) }}</td>
+            <td class="py-2">{{ formatarData(reserva.dataSaida) }}</td>
+            <td class="py-2">{{ formatarDinheiro(reserva.valorDiaria) }}</td>
+            <td class="py-2">{{ formatarDinheiro(reserva.valorTotal) }}</td>
+            <td class="py-2">{{ reserva.status }}</td>
+            <td class="py-2">
+              <button class="mr-3 text-slate-700" type="button" (click)="editar.emit(reserva)">Editar</button>
+              <button class="text-red-700" type="button" (click)="excluir.emit(reserva)">Excluir</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>

@@ -1,0 +1,66 @@
+<form class="grid gap-3 rounded border border-slate-200 bg-white p-4" [formGroup]="form" (ngSubmit)="enviar()">
+  <h2 class="text-lg font-medium">{{ editando() ? 'Editar reserva' : 'Nova reserva' }}</h2>
+  <label class="grid gap-1 text-sm">
+    Pet
+    <select class="rounded border border-slate-300 px-3 py-2" formControlName="petId">
+      <option value="">Selecione</option>
+      @for (pet of pets(); track pet.id) {
+        <option [value]="pet.id">{{ pet.nome }} ({{ pet.tutorNome }})</option>
+      }
+    </select>
+    @if (form.controls.petId.touched && form.controls.petId.invalid) {
+      <span class="text-red-700">Informe o pet.</span>
+    }
+  </label>
+  <label class="grid gap-1 text-sm">
+    Canil
+    <select class="rounded border border-slate-300 px-3 py-2" formControlName="canilId">
+      <option value="">Selecione</option>
+      @for (canil of canis(); track canil.id) {
+        <option [value]="canil.id">Canil {{ canil.numero }} ({{ canil.porte }})</option>
+      }
+    </select>
+    @if (form.controls.canilId.touched && form.controls.canilId.invalid) {
+      <span class="text-red-700">Informe o canil.</span>
+    }
+  </label>
+  <div class="grid gap-3 sm:grid-cols-2">
+    <label class="grid gap-1 text-sm">
+      Entrada
+      <input class="rounded border border-slate-300 px-3 py-2" type="date" formControlName="dataEntrada" />
+      @if (form.controls.dataEntrada.touched && form.controls.dataEntrada.invalid) {
+        <span class="text-red-700">Informe a data de entrada.</span>
+      }
+    </label>
+    <label class="grid gap-1 text-sm">
+      Saída
+      <input class="rounded border border-slate-300 px-3 py-2" type="date" formControlName="dataSaida" />
+      @if (form.controls.dataSaida.touched && form.controls.dataSaida.invalid) {
+        <span class="text-red-700">Informe a data de saída.</span>
+      }
+    </label>
+  </div>
+  <label class="grid gap-1 text-sm">
+    Diária
+    <input class="rounded border border-slate-300 px-3 py-2" type="number" min="0" step="0.01" formControlName="valorDiaria" />
+    @if (form.controls.valorDiaria.touched && form.controls.valorDiaria.invalid) {
+      <span class="text-red-700">A diária não pode ser negativa.</span>
+    }
+  </label>
+  <label class="grid gap-1 text-sm">
+    Status
+    <select class="rounded border border-slate-300 px-3 py-2" formControlName="status">
+      @for (status of statusOpcoes; track status) {
+        <option [value]="status">{{ status }}</option>
+      }
+    </select>
+  </label>
+  @if (totalPrevisto()) {
+    <p class="text-sm text-slate-600">Total previsto: {{ totalPrevisto() }}</p>
+  }
+  <app-mensagem-erro [texto]="erro()" />
+  <div class="flex gap-2">
+    <button class="rounded bg-slate-800 px-4 py-2 text-sm text-white" type="submit">Salvar</button>
+    <button class="rounded border border-slate-300 px-4 py-2 text-sm" type="button" (click)="limpar()">Limpar</button>
+  </div>
+</form>

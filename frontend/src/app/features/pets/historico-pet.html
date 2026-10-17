@@ -1,0 +1,36 @@
+<div class="grid gap-3 rounded border border-slate-200 bg-white p-4">
+  <h2 class="text-lg font-medium">Histórico de {{ nomePet() }}</h2>
+  @if (carregando()) {
+    <p class="text-sm text-slate-500">Carregando.</p>
+  } @else if (itens().length === 0) {
+    <p class="text-sm text-slate-500">Nenhum registro médico.</p>
+  } @else {
+    <ul class="grid gap-2 text-sm">
+      @for (item of itens(); track item.id) {
+        <li class="rounded border border-slate-100 px-3 py-2">
+          <p class="text-slate-500">{{ formatarData(item.data) }}</p>
+          <p>{{ item.descricao }}</p>
+        </li>
+      }
+    </ul>
+  }
+  <form class="grid gap-3" [formGroup]="form" (ngSubmit)="enviar()">
+    <h3 class="text-sm font-medium">Novo registro</h3>
+    <label class="grid gap-1 text-sm">
+      Data
+      <input class="rounded border border-slate-300 px-3 py-2" type="date" formControlName="data" />
+      @if (form.controls.data.touched && form.controls.data.invalid) {
+        <span class="text-red-700">Informe a data.</span>
+      }
+    </label>
+    <label class="grid gap-1 text-sm">
+      Descrição
+      <textarea class="rounded border border-slate-300 px-3 py-2" rows="3" formControlName="descricao"></textarea>
+      @if (form.controls.descricao.touched && form.controls.descricao.invalid) {
+        <span class="text-red-700">Informe a descrição.</span>
+      }
+    </label>
+    <app-mensagem-erro [texto]="erro()" />
+    <button class="w-fit rounded bg-slate-800 px-4 py-2 text-sm text-white" type="submit">Adicionar</button>
+  </form>
+</div>

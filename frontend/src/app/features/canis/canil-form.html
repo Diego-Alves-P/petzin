@@ -1,0 +1,27 @@
+<form class="grid gap-3 rounded border border-slate-200 bg-white p-4" [formGroup]="form" (ngSubmit)="enviar()">
+  <h2 class="text-lg font-medium">{{ editando() ? 'Editar canil' : 'Novo canil' }}</h2>
+  <label class="grid gap-1 text-sm">
+    Número
+    <input class="rounded border border-slate-300 px-3 py-2" type="number" min="1" formControlName="numero" />
+    @if (form.controls.numero.touched && form.controls.numero.invalid) {
+      <span class="text-red-700">Informe um número de canil válido.</span>
+    }
+  </label>
+  <label class="grid gap-1 text-sm">
+    Porte
+    <select class="rounded border border-slate-300 px-3 py-2" formControlName="porte">
+      <option value="">Selecione</option>
+      @for (porte of portes; track porte) {
+        <option [value]="porte">{{ porte }}</option>
+      }
+    </select>
+    @if (form.controls.porte.touched && form.controls.porte.invalid) {
+      <span class="text-red-700">Informe o porte.</span>
+    }
+  </label>
+  <app-mensagem-erro [texto]="erro()" />
+  <div class="flex gap-2">
+    <button class="rounded bg-slate-800 px-4 py-2 text-sm text-white" type="submit">Salvar</button>
+    <button class="rounded border border-slate-300 px-4 py-2 text-sm" type="button" (click)="limpar()">Limpar</button>
+  </div>
+</form>

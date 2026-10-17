@@ -1,0 +1,10 @@
+<section class="grid gap-6">
+  <app-tutor-form [erro]="erroFormulario()" (salvarFormulario)="salvar($event)" />
+  <app-mensagem-erro [texto]="erroLista()" />
+  <app-tutor-lista
+    [tutores]="tutores()"
+    [carregando]="carregando()"
+    (editar)="editar($event)"
+    (excluir)="excluir($event)"
+  />
+</section>

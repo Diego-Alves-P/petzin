@@ -1,0 +1,35 @@
+<div class="rounded border border-slate-200 bg-white p-4">
+  <h2 class="mb-3 text-lg font-medium">Pets</h2>
+  @if (carregando()) {
+    <p class="text-sm text-slate-500">Carregando.</p>
+  } @else if (pets().length === 0) {
+    <p class="text-sm text-slate-500">Nenhum pet cadastrado.</p>
+  } @else {
+    <table class="w-full text-left text-sm">
+      <thead class="text-slate-500">
+        <tr>
+          <th class="py-2 font-medium">Nome</th>
+          <th class="py-2 font-medium">Espécie</th>
+          <th class="py-2 font-medium">Raça</th>
+          <th class="py-2 font-medium">Tutor</th>
+          <th class="py-2 font-medium">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (pet of pets(); track pet.id) {
+          <tr class="border-t border-slate-100">
+            <td class="py-2">{{ pet.nome }}</td>
+            <td class="py-2">{{ pet.especie }}</td>
+            <td class="py-2">{{ pet.raca }}</td>
+            <td class="py-2">{{ pet.tutorNome }}</td>
+            <td class="py-2">
+              <button class="mr-3 text-slate-700" type="button" (click)="historico.emit(pet)">Histórico</button>
+              <button class="mr-3 text-slate-700" type="button" (click)="editar.emit(pet)">Editar</button>
+              <button class="text-red-700" type="button" (click)="excluir.emit(pet)">Excluir</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>
